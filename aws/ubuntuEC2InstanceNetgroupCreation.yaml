@@ -1,0 +1,12 @@
+AWSTemplateFormatVersion: "ubuntu netgroup creation 1.0"
+Description: "Cloud formation YAML format for ubuntu netgroup creation"
+Resources:
+	UbuntuSecurityGroup:
+		Type: AWS::EC2::SecutityGroup
+		Properties:
+			GroupDescription: Enable EC2 SSH access via 22 port
+			SecirityGroupIngress:
+				- IpProtocol: tcp
+				  FromPort: '22'
+				  ToPort: '22'
+				  Cidrlp: 0.0.0.0/0

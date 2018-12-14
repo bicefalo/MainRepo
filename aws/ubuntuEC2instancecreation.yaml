@@ -1,0 +1,42 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Cloud formation YAML format for ubuntu instance creation"
+Mappings:
+        RegionMap:
+                us-east-1:
+
+                us-east-2:
+
+                us-west-1:
+
+                us-west-2:
+Resources:
+  UbuntuEC2Instance:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      ImageId: "ami-0f65671a86f061fcd" #Ohio AMI
+      InstanceType: t2.micro
+      KeyName: "AmazonAMI"
+      Tags:
+        - Key: "Administrator"
+          Value: "Lewis Rodriguez"
+        - Key: "Organization"
+          Value: "Test Instance"
+      SecurityGroups:
+        - !Ref AmazonSecurityGroup
+  AmazonSecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: Enable SSH access and http 
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp: 0.0.0.0/0
+
+
+
+
