@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 #############################################
+# *Developed with python 2.7*               #
 # Created by Lewis Rodriguez.               #
 # 2018-10-05                                #
 # Last modification: 13/12/18               #
@@ -11,21 +12,15 @@ from sys import argv
 from Crypto.PublicKey import RSA
 from paramiko import AuthenticationException, SSHClient, AutoAddPolicy
 from socket import gaierror
+from getpass import getpass
 
-#Variables to be used in the script.
-try:
-    user_home = environ['HOME']
-    username = str(argv[1])
-    password = str(argv[2])
-    hosts = argv[3:]
-except IndexError:
-    print "One of more parameters are missing, please check..."
-    user_help()
-    
+
+
 def user_help ():
-    print """Help:  ./addpublickeytoinstance.py <username> <password> <host or hosts by spaces>"""
+    print """Help:  ./addpublickeytoinstance.py <username> <host or hosts by spaces>"""
     exit(1)
 
+    
 def pretty_print(output):
     print len(output) * "="
     print output
@@ -87,7 +82,7 @@ def ssh_connection_test(host):
         client.load_host_keys(user_home + '/.ssh/known_hosts')
         client.set_missing_host_key_policy(AutoAddPolicy())
         client.connect(host, username=username, key_filename= user_home + "/.ssh/id_rsa", timeout=4)  #allow_agent=False
-        pretty_print("Looks like you already have access with public key to this server " + host + "... Exiting.")
+        pretty_print("Looks like you already have access with public key to this server " + host + "..." )
         return True
     except gaierror:
         pretty_print("Not able to connect to server: " + host + ", it's not reachable...")
@@ -101,7 +96,7 @@ def ssh_connection_test(host):
 
 # Main Function
 def main():
-    if len(argv) < 4:
+    if len(argv) < 3:
         user_help()
     
     
@@ -111,6 +106,18 @@ def main():
             pretty_print('Attempting to add your public key to the target server ' + host)
             deploy_key(key, host, username, password)
 
+
+
+#Variables to be used in the script.
+try:
+    user_home = environ['HOME']
+    username = str(argv[1])
+    #password = str(argv[2])
+    password = getpass("Please introduce the password for the user {0}: ".format(username)) 
+    hosts = argv[2:]
+except IndexError:
+    print "One of more parameters are missing, please check..."
+    user_help()
 
 # Main Function Reference
 if __name__ == "__main__":
