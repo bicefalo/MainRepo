@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 #############################################
 # *Developed with python 2.7*               #
