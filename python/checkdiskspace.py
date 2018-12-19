@@ -5,7 +5,8 @@ from socket import gethostname
 
 
 def mail_sender(exceeded):
-    print exceeded
+    with open('/tmp/report.html', 'w') as report:
+    
 
 #Starting point 
 output = subprocess.Popen(['df','-h'], stdout = subprocess.PIPE)
