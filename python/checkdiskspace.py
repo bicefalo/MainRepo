@@ -9,11 +9,12 @@ list_lenght = len(list)
 #print list
 exceeded = {}
 
+counter = 0
 for i in (list[1:]):
     if i:
         partition =  i.split()[0]
         percentage = int(i.split()[4].replace("%", ""))
         if percentage > 80:
-            print partition, percentage
-
-print exceeded
+            exceeded[counter] = {partition:percentage}
+#            print counter
+            counter += 1
