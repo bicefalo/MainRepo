@@ -10,7 +10,7 @@ def mail_sender(exceeded, host_name):
     sender = "l.rodriguez.contrera@gmail.com"
     receiver = ""
     with open("/tmp/report", 'w+') as report:
-        html = """
+        head_html = """
         <html>
 	<head>
 	<style>
@@ -50,6 +50,8 @@ def mail_sender(exceeded, host_name):
 	</head>
 	<body>
 	<table style="width:100%">
+        """
+
         <tr><td>kevin.m.bonanno</td>
         <td>
         <table class="child_style" style="width:100%">
@@ -63,13 +65,14 @@ def mail_sender(exceeded, host_name):
         <tr>
         <td colspan="2">vecbusservices/ici/src/main/java/com/vz/ici/util/IciUtil.java</td>
         </tr>
+
+        botton_html = """
         </table>
         </td>
         </table>
         </body>
         </html>
         """  
-        report.write(html)        
     #msg = MIMEText(report.read())
     #msg['Subject'] = "[WARNING] Diskspace report for server " + host_name
     #msg['From'] = "l.rodriguez.contrera@gmail.com"
