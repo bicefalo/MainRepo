@@ -96,9 +96,6 @@ def ssh_connection_test(host):
 
 # Main Function
 def main():
-    if len(argv) < 3:
-        user_help()
-    
     
     key = get_key()
     for host in hosts:
@@ -110,6 +107,9 @@ def main():
 
 #Variables to be used in the script.
 try:
+    if len(argv) < 3:
+        user_help()
+    
     user_home = environ['HOME']
     username = str(argv[1])
     #password = str(argv[2])

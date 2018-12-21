@@ -52,6 +52,16 @@ def mail_sender(exceeded, host_name):
 	<table style="width:100%">
         """
 
+        botton_html = """
+        </table>
+        </td>
+        </table>
+        </body>
+        </html>
+        """  
+        
+        report.write(head_html) 
+        
         <tr><td>kevin.m.bonanno</td>
         <td>
         <table class="child_style" style="width:100%">
@@ -66,13 +76,6 @@ def mail_sender(exceeded, host_name):
         <td colspan="2">vecbusservices/ici/src/main/java/com/vz/ici/util/IciUtil.java</td>
         </tr>
 
-        botton_html = """
-        </table>
-        </td>
-        </table>
-        </body>
-        </html>
-        """  
     #msg = MIMEText(report.read())
     #msg['Subject'] = "[WARNING] Diskspace report for server " + host_name
     #msg['From'] = "l.rodriguez.contrera@gmail.com"
@@ -104,4 +107,3 @@ if  exceeded:
     mail_sender(exceeded, host_name)
 else:
     print "No file systems over 80% of capacity."
-
