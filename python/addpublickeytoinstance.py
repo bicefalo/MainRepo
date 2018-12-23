@@ -116,7 +116,7 @@ try:
     password = getpass("Please introduce the password for the user {0}: ".format(username)) 
     hosts = argv[2:]
 except IndexError:
-    print "One of more parameters are missing, please check..."
+    print "One or more parameters are missing, please check..."
     user_help()
 
 # Main Function Reference
