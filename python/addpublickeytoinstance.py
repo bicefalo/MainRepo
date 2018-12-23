@@ -40,7 +40,7 @@ def deploy_key(key, server, username, password):
         client.exec_command('chmod 700 ~/.ssh/')
         pretty_print("Public key successfully added.")
     except Exception as e:
-        pretty_print("There is an error trying to add the public key to the server, pls check...")
+        pretty_print("There was an error trying to add the public key to the server, pls check...")
         print e
         exit(1)
     finally:
