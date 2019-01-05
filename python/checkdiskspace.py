@@ -1,4 +1,12 @@
 #!/usr/bin/env python
+#############################################
+# *Developed with python 2.7*               #
+# Created by Lewis Rodriguez.               #
+# 2018-10-05                                #
+# Last modification: 05/01/19               #
+# Script to check disk space in Linux/Unix  #
+# systems.                                  #
+#############################################
 
 import subprocess, smtplib
 from socket import gethostname
@@ -10,9 +18,14 @@ def mail_sender(exceeded, host_name):
     try:
         email_server = smtplib.SMTP('smtp.gmail.com', 587)
         email_server.ehlo()
-        sender = "l.rodriguez.contrera@gmail.com"
-        receiver = "l.rodriguez.contrera@gmail.com"
-        with open("/tmp/report", 'w') as report:
+    except Exception as  e:
+        print "There is a connection error to the email server, please check. Email will not be sent."
+        print e
+        exit(1)
+
+    sender = "l.rodriguez.contrera@gmail.com"
+    receiver = "l.rodriguez.contrera@gmail.com"
+    with open("/tmp/report", 'w') as report:
             html_header = '''<!DOCTYPE html>
             <html>
             <head>
@@ -59,9 +72,7 @@ def mail_sender(exceeded, host_name):
                 report.write("<td>" + str(value) + "%</td>")
                 report.write("</tr>") 
             report.write(html_botton)
-    except Exception as  e:
-        print "There was an error trying to send the report email, please check."
-        print e
+
 
 
 
