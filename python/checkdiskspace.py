@@ -16,62 +16,70 @@ from email.mime.multipart import MIMEMultipart
 
 def mail_sender(exceeded, host_name):
     try:
-        email_server = smtplib.SMTP('smtp.gmail.com', 587)
+        #email_server = smtplib.SMTP_SSL('smtp.gmail.com', 587)
+        email_server = smtplib.SMTP('localhost', 8000)
         email_server.ehlo()
+        From = "l.rodriguez.contrera@gmail.com"
+        To = ['l.rodriguez.contrera@gmail.com']
+        Subject = "[ WARNING ] Disk Space utilization in server {0} almost full.".format(host_name)
+        with open("/tmp/report", 'w') as report:
+                html_header = '''<!DOCTYPE html>
+                <html>
+                <head>
+                <style>
+                table {
+                  border-collapse: collapse;
+                }
+                
+                th, td {
+                  text-align: center;
+                  padding: 8px;
+                }
+                
+                tr:nth-child(even){background-color: #f2f2f2}
+                
+                th {
+                  background-color: #4CAF50;
+                  color: white;
+                }
+                </style>
+                </head>
+                <body>
+               '''
+
+                html_body = '''
+                <tr>
+                    <th>Partition</th>
+                    <th>Percentage</th>
+                  </tr>'''
+
+                html_botton = '''
+                </table>
+                </body>
+                </html>
+               '''
+                report.write(html_header)
+                report.write("<h2>" + host_name + " </h2>")
+                report.write("<table>")
+                report.write(html_body)
+                for key, value in exceeded.items():
+                    print key, value
+                    report.write("<tr>")
+                    report.write("<td>" + key + "</td>")
+                    report.write("<td>" + str(value) + "%</td>")
+                    report.write("</tr>") 
+                report.write(html_botton)
+                #email_server.login("l.rodriguez.contrera@gmail.com","040106132810")
+  
+        email_server.sendmail(From, To, report.readlines())
     except Exception as  e:
-        print "There is a connection error to the email server, please check. Email will not be sent."
+        print "There is a connection error to the email server, email will not be sent."
         print e
         exit(1)
 
-    sender = "l.rodriguez.contrera@gmail.com"
-    receiver = "l.rodriguez.contrera@gmail.com"
-    with open("/tmp/report", 'w') as report:
-            html_header = '''<!DOCTYPE html>
-            <html>
-            <head>
-            <style>
-            table {
-              border-collapse: collapse;
-            }
-            
-            th, td {
-              text-align: center;
-              padding: 8px;
-            }
-            
-            tr:nth-child(even){background-color: #f2f2f2}
-            
-            th {
-              background-color: #4CAF50;
-              color: white;
-            }
-            </style>
-            </head>
-            <body>
-           '''
 
-            html_body = '''
-            <tr>
-                <th>Partition</th>
-                <th>Percentage</th>
-              </tr>'''
+        
 
-            html_botton = '''
-            </table>
-            </body>
-            </html>
-           '''
-            report.write(html_header)
-            report.write("<h2>" + host_name + " </h2>")
-            report.write("<table>")
-            report.write(html_body)
-            for key, value in exceeded.items():
-                print key, value
-                report.write("<tr>")
-                report.write("<td>" + key + "</td>")
-                report.write("<td>" + str(value) + "%</td>")
-                report.write("</tr>") 
-            report.write(html_botton)
 
 
 
