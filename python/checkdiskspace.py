@@ -16,8 +16,7 @@ from email.mime.multipart import MIMEMultipart
 
 def mail_sender(exceeded, host_name):
     try:
-        #email_server = smtplib.SMTP_SSL('smtp.gmail.com', 587)
-        email_server = smtplib.SMTP('localhost', 8000)
+        email_server = smtplib.SMTP_SSL('smtp.gmail.com', 587)
         email_server.ehlo()
         From = "l.rodriguez.contrera@gmail.com"
         To = ['l.rodriguez.contrera@gmail.com']
@@ -69,8 +68,7 @@ def mail_sender(exceeded, host_name):
                     report.write("<td>" + str(value) + "%</td>")
                     report.write("</tr>") 
                 report.write(html_botton)
-                #email_server.login("l.rodriguez.contrera@gmail.com","040106132810")
-  
+        email_server.login("cityofgod04@gmail.com","prtc0413")
         email_server.sendmail(From, To, report.readlines())
     except Exception as  e:
         print "There is a connection error to the email server, email will not be sent."
