@@ -1,25 +1,24 @@
 #!/usr/bin/bash -x 
 export ENV=${1}
-export HOME_DIR="/apps/opt/jenkins/workspace/VEC-WORKSPACE-${ENV}"
-export REPORT_HOME="/home/jenkins/scripts/AccuRev/DP_Reports"
-export List_Report="${REPORT_HOME}/Deployment_report.${ENV}_${JOB_BUILD_ID}"
-export Report="${REPORT_HOME}/Deployment_report.${ENV}_${JOB_BUILD_ID}.html"
-export EMAIL_LIST="$(cat ${List_Report} | awk '{print $1}' | sort -u | sed 's/$/@one.verizon.com/g' | xargs | sed 's/ /,/g' | sed 's/beneta.b@one.verizon.com/beneta.b@in.verizon.com/g' | sed 's/pradeep.x.ravindran@one.verizon.com/pradeep.x.ravindran@intl.verizon.com/g' | sed 's/sathish.kumar.dhakshinamoorthy@one.verizon.com/sathish.kumar.dhakshinamoorthy@intl.verizon.com/g' | sed 's/hemalata.venkateswaran@one.verizon.com/hemalata.venkateswaran@intl.verizon.com/g')"
-cat EMAIL_LIST > /home/jenkins/scripts/AccuRev/DP_Reports/EMAIL_LIST.${ENV}_${JOB_BUILD_ID}
+export HOME_DIR=""
+export REPORT_HOME=""
+export List_Report=""
+export Report=""
+export EMAIL_LIST=""
 
 Mail_Report(){
 DateTime=$(date "+%H:%M:%S %m/%d/%Y")
 (
- echo "From: VECEnvironmentTeam@one.verizon.com"
+ echo "From: "
  echo "To: ${EMAIL_LIST}"
- echo "Cc: VECEnvironmentTeam@one.verizon.com"
- echo "Subject: ${ENV} - VEC development DP have been started jenkins build #${JOB_BUILD_ID}. -- ${DateTime} --  EST."
+ echo "Cc: "
+ echo "Subject: "
  echo "Content-Type: text/html"
  echo " "
  echo " "
  echo " "
  echo " "
- echo "<a href=\"http://v19sacgta41.ebiz.verizon.com:8080/view/PIPE_LINES/view/VEC/view/VEC-DP-${ENV}\">VEC-DP-${ENV} Link.</a>" 
+ echo "<a href=\"" 
  cat ${Report}
 ) |  /usr/sbin/sendmail -t
 }
